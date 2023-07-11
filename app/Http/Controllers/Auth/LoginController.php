@@ -18,8 +18,10 @@ class LoginController extends Controller
 
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
-            // Authentication successful, redirect to home page or any other desired page
-            return redirect('/home')->with('success', 'Login successful!');
+            /** @var \App\Models\User $user **/
+            $user = Auth::user();
+            $token = $user->createToken('AuthToken')->plainTextToken;
+            return response()->json(['token' => $token]);
         } else {
             // Authentication failed, redirect back with error message
             return redirect()->back()->with('error', 'Invalid credentials');
