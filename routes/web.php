@@ -28,6 +28,7 @@ Route::get('/getuser', function (Request $request) {
         return response()->json(['email' => $user->email]);
     } else {
         // User is not logged in
+        return "aaaa";
         return response()->json(['message' => 'User is not logged in']);
     }
 });

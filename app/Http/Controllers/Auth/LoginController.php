@@ -21,10 +21,17 @@ class LoginController extends Controller
             /** @var \App\Models\User $user **/
             $user = Auth::user();
             $token = $user->createToken('AuthToken')->plainTextToken;
-            return response()->json(['token' => $token]);
+            return response()->json([
+                'username' => $user->name,
+                'token' => $token,
+                'message' => 'User Logged In Successfully',
+                'email' => $request->email,
+            ], 200);
         } else {
             // Authentication failed, redirect back with error message
-            return redirect()->back()->with('error', 'Invalid credentials');
+            return response()->json([
+                'message' => 'Invalid credentials',
+            ], 401);
         }
     }
 }

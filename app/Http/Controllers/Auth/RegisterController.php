@@ -26,6 +26,8 @@ class RegisterController extends Controller
         $user->save();
 
         // Redirect the user after successful registration
-        return redirect('/')->with('success', 'Registration successful!');
+        return response()->json([
+            'message' => "Register successfully",
+        ], 200);
     }
 }
